@@ -1,0 +1,84 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.3.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version	2.0;
+    format	ascii;
+    class	dictionary;
+    object	waveProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+seaLevel            0.8;
+
+relaxationNames     ( inlet0 outlet1 outlet2 );
+
+initializationName  outlet1;
+
+inlet0Coeffs
+{
+    waveType            stokesFirst;
+    depth               5;
+    period              3.0337;
+    direction           ( 1 0 0 );
+    phi                 0;
+    height              0.1;
+    waveNumber          (0.447356 0 0);
+    omega               2.07113;
+
+    relaxationZone
+    {
+        relaxationScheme    Spatial;
+        relaxationShape     Rectangular;
+        beachType           Empty;
+        relaxType           INLET;
+        startX              ( 0 0 0 );
+        endX                ( 8 1.2 16 );
+        orientation         ( 1 0 0 );
+    }
+}
+
+outlet1Coeffs
+{
+    waveType            potentialCurrent;
+    U                   ( 0 0 0 );
+    Tsoft               2;
+
+    relaxationZone
+    {
+        relaxationScheme    Spatial;
+        relaxationShape     Rectangular;
+        beachType           Empty;
+        relaxType           OUTLET;
+        startX              ( 8 0 16 );
+        endX                ( 40 1.2 20 );
+        orientation         ( 0 0 1 );
+    }
+}
+
+outlet2Coeffs
+{
+    waveType            potentialCurrent;
+    U                   ( 0 0 0 );
+    Tsoft               2;
+
+    relaxationZone
+    {
+        relaxationScheme    Spatial;
+        relaxationShape     Rectangular;
+        beachType           Empty;
+        relaxType           OUTLET;
+        startX              ( 40 0 0 );
+        endX                ( 48 1.2 16 );
+        orientation         ( -1 0 0 );
+    }
+}
+
+
+
+// ************************************************************************* //
